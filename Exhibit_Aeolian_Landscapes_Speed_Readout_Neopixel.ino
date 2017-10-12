@@ -11,7 +11,7 @@
 #define capRec 6
 #define potPin A0
 #define timeout 10000 // Change this to change how long it takes to go to attract mode
-#define thresh = ____Calibration-value-here______
+#define thresh = 1000  //Change this to adjust the capacitive button sensitivity
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, neoPin, NEO_GRB + NEO_KHZ800);
 CapacitiveSensor   capSense = CapacitiveSensor(capSend,capRec);
