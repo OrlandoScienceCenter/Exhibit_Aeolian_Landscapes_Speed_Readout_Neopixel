@@ -1,14 +1,20 @@
 #include <Adafruit_NeoPixel.h>
+#include <CapacitiveSensor.h>
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
 
-#define PIN 9
+#define neoPin 9
+#define relPin 8
+#define butPin 10
+#define capSend 7
+#define capRec 6
 #define potPin A0
 #define timeout 10000 // Change this to change how long it takes to go to attract mode
+#define thresh = ____Calibration-value-here______
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, PIN, NEO_GRB + NEO_KHZ800);
-
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, neoPin, NEO_GRB + NEO_KHZ800);
+CapacitiveSensor   capSense = CapacitiveSensor(capSend,capRec);
 // Smoothing vars
 const int numReadings = 100;
 int readings[numReadings];      // the readings from the analog input
@@ -29,7 +35,10 @@ byte lastVal = 0;
 
 void setup() {
   pinMode(potPin, INPUT);
-
+  pinMode(butPin, INPUT_PULLUP);
+  pinMode(relPin, OUTPUT);
+  digitalWrite(relPin,LOW);
+  cs_4_2.set_CS_AutocaL_Millis(0xFFFFFFFF);
   for (int thisReading = 0; thisReading < numReadings; thisReading++) {
     readings[thisReading] = 0;
   }
@@ -74,7 +83,8 @@ if (!attractMode){
   if (attractMode){
     rainbow(15);
   }
-
+  int capVal = capSense.capacitiveSensor(30);
+  digitalWrite(relPin,(capVal > thresh) || !digitalRead(butPin));
   delay(1);
 }
 
