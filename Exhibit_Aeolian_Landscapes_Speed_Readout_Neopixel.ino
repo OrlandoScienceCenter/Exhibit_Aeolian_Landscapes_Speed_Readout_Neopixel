@@ -7,8 +7,8 @@
 #define neoPin 9
 #define relPin 8
 #define butPin 10
-#define capSend 7
-#define capRec 6
+#define capSend 6
+#define capRec 2
 #define potPin A0
 #define timeout 10000 // Change this to change how long it takes to go to attract mode
 #define thresh = 1000  //Change this to adjust the capacitive button sensitivity
