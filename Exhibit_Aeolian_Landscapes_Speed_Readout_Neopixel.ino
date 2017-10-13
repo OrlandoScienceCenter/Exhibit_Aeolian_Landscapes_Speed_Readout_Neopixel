@@ -83,7 +83,7 @@ if (!attractMode){
   if (attractMode){
     rainbow(15);
   }
-  int capVal = capSense.capacitiveSensor(30);
+  long capVal = capSense.capacitiveSensor(30);
   digitalWrite(relPin,(capVal > thresh) || !digitalRead(butPin));
   delay(1);
 }
